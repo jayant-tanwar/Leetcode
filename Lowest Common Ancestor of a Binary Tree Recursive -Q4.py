@@ -36,7 +36,7 @@ class Solution:
                 return root
         return LCA(root,p,q)
  
-//Find the iterative solution in Java
+##Find the iterative solution in Java
 
    
 
