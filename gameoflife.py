@@ -2,7 +2,7 @@
 class Solution:
     def gameOfLife(self, board):
         
-        #b=[[float('inf')]*(len(board[0])) for _ in range(0,len(board))]
+        #b=[[float('inf')]*(len(board[0])) for _ in range(0,len(board))] 
         
         X=[-1,1,0,0,-1,1,1,-1]
         Y=[0,0,1,-1,-1,-1,1,1]
