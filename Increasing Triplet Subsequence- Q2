@@ -1,0 +1,42 @@
+/*Given an unsorted array return whether an increasing subsequence of length 3 exists or not in the array.
+Formally the function should:
+Return true if there exists i, j, k
+such that arr[i] < arr[j] < arr[k] given 0 ≤ i < j < k ≤ n-1 else return false.
+Note: Your algorithm should run in O(n) time complexity and O(1) space complexity.
+Example 1:
+Input: [1,2,3,4,5]
+Output: true
+Example 2:
+Input: [5,4,3,2,1]
+Output: false
+link:https://leetcode.com/problems/increasing-triplet-subsequence/
+*/
+
+class Solution {
+    public boolean increasingTriplet(int[] nums) {
+        if(nums.length<3) return false;
+        int first=Integer.MAX_VALUE;
+        int second=Integer.MAX_VALUE;
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]<=first) first=nums[i];
+            else if(nums[i]<=second) second=nums[i];
+            else return true;
+        }
+        return false;
+    }
+}
+
+/*Explanation:
+  LIS won't work because that is O(n^2) and O(n).
+  Sorting here is meaningless.
+  A brute force solution won't work either.
+  The current best algorithm: There are two numbers: first and second. First is the first number of your sequence and second is the second number of your sequence,
+  if the current number is smaller than the first number then change the first number to that number,
+  next if the current number is greater than the first numbers but smaller the second number, then update the
+  second number. Now if the current number is greater than both the first and the second then
+  that means that you have found a sequence of length 3 which is increasing (strictly).
+  in <= the '=' is there so that the sequence is always strictly increasing.
+  first and second can be understood as:
+  first = so far best candidate of end element of a one-cell subsequence to form a triplet subsequence.
+  second = so far best candidate of end element of a two-cell subsequence to form a triplet subsequence
+*/
