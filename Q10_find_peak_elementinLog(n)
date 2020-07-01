@@ -1,0 +1,92 @@
+/*
+
+
+A peak element is an element that is greater than its neighbors.
+
+Given an input array nums, where nums[i] ≠ nums[i+1], find a peak element and return its index.
+
+The array may contain multiple peaks, in that case return the index to any one of the peaks is fine.
+
+You may imagine that nums[-1] = nums[n] = -∞.
+
+Example 1:
+
+Input: nums = [1,2,3,1]
+Output: 2
+Explanation: 3 is a peak element and your function should return the index number 2.
+Example 2:
+
+Input: nums = [1,2,1,3,5,6,4]
+Output: 1 or 5 
+Explanation: Your function can return either index number 1 where the peak element is 2, 
+             or index number 5 where the peak element is 6.
+Follow up: Your solution should be in logarithmic complexity.
+
+*/
+
+/*
+Linear solution:
+In this approach we make sure of the fact that
+two consecutive numbers nums[j] and nums[j+1]
+are never equal.
+This we can traverse over the nums array starting
+from the beginning. 
+Whenever we find a number nums[i],
+we only need to check if it is larger than the next number
+nums[i+1] for determining if nums[i] is the peak element.
+The reasonsing behind this can be understood by taking the following
+cases which cover every case into which any problem can be divided.
+
+
+
+case1: All the numbers appear in a descending order. In this case, the
+first element corresponds to the peak element.
+We start off by checking if the current element is larger thn the next one.
+The first element satisfies the criteria, and is hence identified as the peak
+correctly. In this case, we didn't reach a pointe where we needed to compare
+nums[i] with nums[i-1] also, to determine if it is the peak element or not..
+
+
+
+Case 2. All the elements appear in ascending order. In this case,
+we keep comparising nums[i] with nums[i+1] to determine if nums[i] is
+the peak element or not.
+None of the elements satisfy this criteria, indicating that we are currently on a 
+rising slope and not on a peak. This t the end we need to return the
+last element, which turns out to be correct.
+In this case also,we need not compre nums[i] with nums[i-1]
+since being on the rising slope is a sufficient condition to ensure thta nums[i] isnt
+the peak element.
+
+
+Case3:
+The appers somewhere in the middle. In this case, when we are traversing on 
+the rising edge, as in the case2, none of the elements will satisfy nums[i]>nums[i+1].
+We need not compare nums[i] with nums[i-1] on the rising slope.
+When we finally reach the peak element, the condition nums[i]> nums[i+1] is satisifed.
+We again, need not compare nums[i] with nums[i-1]. This is because, we could reach nums[i]
+as the current element only when the check nums[i]> nums[i+1] failed for the previous
+(i-1)th element, indicating that nums[i-1]< nums[i]. Thus we are able to identify the peak element
+correctly in this case as well.
+
+*/
+
+public class Solution{
+    public int findPeakElement(int[] nums){
+        for(int i=0;i<nums.length-1;i++)
+          if(nums[i]>nums[i+1) return i;
+         
+         
+        return nums.length-1;}
+        
+      //T.C O(N), We traverse the nums array of size n once only.
+      // S.C O(1). Constant extra space is used.
+
+
+/*
+Binary search
+ We can view any given sequence in nums array as alternating ascending and
+ descending sequences. 
+ 
+
+
