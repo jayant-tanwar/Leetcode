@@ -31,11 +31,11 @@ Case 3: Two-parent problem and cyclic problem. Example: Test case 13: [[2,1],[3,
 
 More on case 3:
 We do union only if it is not the second parentEdge.
-We assume that, we always remove the second parentEdge, if in case there is still a cycle then that means
+We assume that, we always remove the second parentEdge, if in case there is still a cycle than that means
 we made the wrong choice and we should remove the first parentEgde instead.
 
 Example: [[1,2],[2,3],[4,3],[3,1]]
-Explanation: This is a case 3 problem. [2,3] comes before [4,3] so remove [4,3] and then union [1,2],[2,3],[3,1]
+Explanation: This is a case 3 problem. [2,3] comes before [4,3] so remove [4,3] and than union [1,2],[2,3],[3,1]
 however there is still a cycle in the graph. Therefore, we should remove [2,3].
 
 
@@ -62,6 +62,91 @@ public int[] findRedundantDirectedConnection(int[][] edges){
               
          }
     }
+    
+    
+    UnionFind uf = new UnionFind(numNodes);
+    
+    for(int i = 0 ; i < numNodes; i++){
+        if(i == edgeRemoved) continue;
+        
+        int u = edge[i][0];
+        int v = egde[i][1];
+        
+        if(uf.union(u,v)==false){
+            edgeMakesCycle = i;
+            break;
+        }
+    }
+    
+  
+    //If this is just a cyclic problem
+    if ( edgeRemoved == -1 ){
+        retuen edges[edgeMakesCycle]; }
+    
+    
+    //If a cycle was detected, then we have to remove edge
+    //the from the cycle which has two parents
+    if( edgeMakesCycle != -1){
+        //But if the cycle was detected then,
+        //it means that edgeRemoved lies out of cycle
+        //which means that Parent[v] and v are
+        //part of cycle
+        //and hence [Parent[v],v] came before edgeRemoved
+        //in the input array
+        int v = edges[edgeRemoved][1];
+        int u = parent[v];
+        return new int[]{u,v};
+    }
+    
+    
+    //If cycle was not detected, then that means
+    //the cyclic egde came at the end
+    //and Parent[v],v is the egde outside cycle
+    //and egdeRemoved is inside the circle
+    
+    return edges[edgeRemoved];
+    
+}
+
+static class UnionFind{
+    
+    private int[] parent;
+    private int[] rank;
+    
+    public UnionFind(int n){
+        parent = new int[n+1];
+        rank = new int[n+1];
+        for(int i=1;i<=n;i++){
+            parent[i]=i;
+            rank[i]=1;
+        }
+    }
+    
+    private int find(int x){
+        if(parent[x]==x)return x;
+        parent[x]=find(parent[x])
+        return parent[x];}
+    
+    private boolean union(int x, int y){
+        int rootX=find(x);
+        int rootY=find(y);
+        
+        if( rootX == rootY ) return false;
+        
+        if( rank[rootX] < rank[rootY]){
+            parent[rootX]=rootY;}
+        else if(rank[rootY] < rank[rootX]){
+            parent[rootY]=rootX;}
+        else{
+            parent[rootX]=rootY;
+            rank[rootY]++;
+        }
+    }
+}
+
+            
+    
+        
     
     
 
