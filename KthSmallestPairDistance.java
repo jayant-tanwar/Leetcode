@@ -37,7 +37,7 @@ class Solution {
             while(nums[right] - nums[left]> mid){
                 left = left + 1;
             }
-            count= count + ( right - left ); //that is how you count the number of pairs   
+            count= count + ( right - left ); //that is how you count the number of pairs   why not +1? because a single element is not a pair!
         }
         
         return count;
@@ -53,6 +53,6 @@ O(N) work is done to calculate 'count'
 NlogN factor comes from sorting.
   
 Space Complexity: Depends on Arrays.sort(nums)
-if it does not require extra space then it SC is O(1)
+if it does not require extra space than it SC is O(1)
 otherwise what ever memory it requires.
   
