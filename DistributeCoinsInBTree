@@ -1,0 +1,38 @@
+Problem Statement:
+You are given the root of a binary tree with n nodes where each node in the tree has node.val coins and there are n coins total.
+In one move, we may choose two adjacent nodes and move one coin from one node to another. (A move may be from parent to child, or from child to parent.)
+Return the number of moves required to make every node have exactly one coin
+
+
+The Idea:
+
+Pick any subtree of the binary tree, let the root of this substree be x.
+To balance this subtree, each node of this subtree should have val as 1.
+To do so, calculate the excess (or deficit) at each node of this substree.
+Excess of each node would contain two quantities.
+1. The coins which need to be taken away from this node, which are x.val-1;
+2. The coints which need to be taken away from this substree excluding x.
+
+
+class Solution{
+  int moves;
+  public int distribute(TreeNode root){
+      moves = 0;
+      Traverse(root);
+      return moves;
+  }
+  
+  private int Traverse(TreeNode root){
+      if(root==null) return 0;
+      int l = Traverse(root.left);
+      int r = Traverse(root.right);
+      //l and r are the excess coming from root's subtree.
+      
+      int disperse = l+r+root.val-1;
+      moves += Math.abs(disperse); // because it can be negative
+      return disperse;
+      
+      
+  }
+  
+}
