@@ -1,0 +1,56 @@
+1713. You are given an array target that consists of distinct integers and another
+integer array 'arr' that can have duplicates.
+In one operatoin you can insert any integer at any position in "arr".
+Return the minimum number of operations needed to make target a subsequence of "arr".
+
+
+Solution: LCS would give TLE
+Therefore we need something different to work with.
+
+"You are given an array target that consists of distinct integers"
+So there is an order of elements in the target, which comes first and 
+which comes later.
+
+(1) Since "target" array has distinct elements that means I can give every element an index which is unique to it.
+(2) Now let us delete all the elements in "arr" array which are not present in the target array.
+(3) What is left in "arr" array is all the elements which are present in target.
+(4) Replace each element in "arr" with its index from target array. What that means is if you have element "5" in arr and its index is 1 in target array then, you replace the element with that index.
+(5) Now you have indexes instead of elements.
+(6) Now you find the longest incresing subseqence. Why increasing? because remember the indexing the target array is 0,1,2,3,4,5,... so on.
+
+
+
+class Solution{
+    public int minOperations(int[] target,int[] arr){
+        int n = target.length;
+        int m = arr.length;
+        
+        ArrayList<Integer> A = new ArrayList<Integer>();
+        HashMap<Integer,Integer> Map = new HashMap<>();
+        
+        for(int i=0;i<n;i++){
+          Map.put(target[i],i);
+        }
+        
+        for(int i=0;i<m;i++){
+            if(!Map.containsKey(arr[i])) continue;
+            
+            if(A.size()==0 || A.get(A.size()-1)<Map.get(arr[i])){
+                A.add(Map.get(arr[i]));
+                continue;
+            }
+            
+            
+            int l = 0;
+            int r = A.size()-1;
+            while(l<r){
+                int mid = (l+r)>>1;
+                if(
+                
+            }
+        
+        }
+        
+        
+    }
+}
